@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Gargi ❤️</title> 
+    <style>
+        /* =========================================
+           RESET & FONTS
+           ========================================= */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Courier+Prime:wght@700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            width: 100vw; height: 100vh; overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #000;
+        }
+
+        #app { width: 100%; height: 100%; position: relative; }
+
+        /* SCREEN TRANSITIONS */
+        .screen {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: none; opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .screen.active { display: flex; opacity: 1; }
+
+        /* =========================================
+           PAGE 1: LANDING
+           ========================================= */
+        #page-1 {
+            background-color: #FFC0CB;
+            justify-content: center; align-items: center; z-index: 10;
+        }
+        .heart-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; overflow: hidden;
+        }
+        .floater {
+            position: absolute; font-size: 2rem;
+            animation: floatUp linear infinite;
+        }
+        @keyframes floatUp {
+            from { transform: translateY(110vh) rotate(0deg); opacity: 1; }
+            to { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+        .btn-main {
+            padding: 20px 50px; font-size: 1.5rem; letter-spacing: 2px;
+            background: linear-gradient(135deg, #E91E63, #C2185B);
+            color: white; border: none; border-radius: 50px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            cursor: pointer; transition: transform 0.2s;
+            z-index: 2; font-weight: 900;
+        }
+        .btn-main:hover { transform: scale(1.05); }
+
+        /* =========================================
+           PAGE 2: PROPOSAL
+           ========================================= */
+        #page-2 {
+            background-color: #f0f0f0;
+            justify-content: center; align-items: center; z-index: 20;
+        }
+        .meme-anchor {
+            position: relative; height: 90vh; display: inline-block; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .main-image { display: block; height: 100%; width: auto; }
+
+        /* OVERLAYS */
+        .overlay-zone { position: absolute; overflow: hidden; }
+        .top-zone {
+            top: 10%; left: 5%; width: 35%; height: 30%;  
+            display: flex; justify-content: center; align-items: center;
+        }
+        .bottom-zone {
+            top: 55%; left: 5%; width: 35%; height: 30%;  
+        }
+        .message-text {
+            font-family: 'Courier Prime', monospace;
+            font-size: clamp(16px, 1.5vh, 24px);
+            text-align: center; color: #000;
+            transform: rotate(-2deg);
+        }
+
+        /* BUTTONS */
+        .btn-action {
+            padding: 15px 35px; font-family: 'Montserrat', sans-serif;
+            font-weight: 900; font-size: 1.1rem;
+            border: none; border-radius: 50px;
+            cursor: pointer; position: absolute;
+            transform: translate(-50%, -50%); top: 50%;
+            color: white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15), inset 0 2px 0 rgba(255,255,255,0.4);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        /* --- FIXES HERE --- */
+
+        .btn-yes {
+            background: linear-gradient(to right, #ff9a9e, #fecfef);
+            left: 25%; /* Start Left */
+            z-index: 10; /* Low Priority */
+            border: 2px solid white; 
+            transition: transform 0.3s ease;
+        }
+        .btn-yes:hover {
+            transform: translate(-50%, -50%) scale(1.15); 
+            box-shadow: 0 15px 30px rgba(255, 154, 158, 0.6); 
+            animation: heartbeat 1.5s infinite; 
+        }
+
+        .btn-no {
+            background: linear-gradient(to right, #ff512f, #dd2476);
+            left: 75%; /* Start further Right (Separated from Yes) */
+            z-index: 50; /* HIGH PRIORITY - ALWAYS ON TOP */
+            transition: top 0.1s, left 0.1s; 
+        }
+
+        @keyframes heartbeat {
+            0% { transform: translate(-50%, -50%) scale(1.15); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+            100% { transform: translate(-50%, -50%) scale(1.15); }
+        }
+
+        /* =========================================
+           PAGE 3: SELF DESTRUCT SEQUENCE
+           ========================================= */
+        #page-3 {
+            background-color: #000;
+            justify-content: center; align-items: center;
+            z-index: 30;
+            flex-direction: column; 
+        }
+
+        /* 1. Spy Text */
+        .spy-text {
+            color: #00FF00;
+            font-family: 'Courier Prime', monospace;
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            font-weight: bold; letter-spacing: 2px;
+            text-align: center; margin-bottom: 20px;
+        }
+
+        /* 2. Countdown Timer */
+        .countdown-text {
+            color: #FF0000;
+            font-family: 'Courier Prime', monospace;
+            font-size: 6rem;
+            font-weight: bold;
+            text-shadow: 0 0 20px red;
+            animation: urgentPulse 0.5s infinite;
+        }
+
+        @keyframes urgentPulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* 3. The Blast Effect */
+        .blast-effect {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 10px; height: 10px;
+            background: radial-gradient(circle, #fff, #ffae00, #ff4500, transparent);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            z-index: 40;
+            pointer-events: none;
+        }
+
+        .blast-effect.explode {
+            animation: explosionAnim 0.8s ease-out forwards;
+        }
+
+        @keyframes explosionAnim {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            50% { transform: translate(-50%, -50%) scale(50); opacity: 0.8; }
+            100% { transform: translate(-50%, -50%) scale(100); opacity: 0; }
+        }
+
+        /* 4. Final Heart */
+        .giant-heart {
+            font-size: 30vh; 
+            animation: popIn 0.5s ease-out, beat 1.5s infinite;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            80% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        @keyframes beat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <main id="app">
+
+      <section id="page-1" class="screen active">
+        <div class="heart-bg" id="heart-container"></div>
+        <div class="content-center">
+          <button id="btn-open" class="btn-main">OPEN ME</button>
+        </div>
+      </section>
+
+      <section id="page-2" class="screen">
+        
+        <div class="meme-anchor">
+          
+          <img 
+            src="https://raw.githubusercontent.com/storyteller1989/test2/main/Gemini_Generated_Image_xqth3mxqth3mxqth.png" 
+            alt="Proposal Background" 
+            class="main-image" 
+          >
+
+          <div class="overlay-zone top-zone" id="zone-top">
+            <h1 class="message-text">
+                </h1>
+          </div>
+
+          <div class="overlay-zone bottom-zone" id="zone-bottom">
+            <button id="btn-yes" class="btn-action btn-yes">💖 YES 💖</button>
+            
+            <button id="btn-no" class="btn-action btn-no">NO 💔</button>
+          </div>
+
+        </div>
+      </section>
+
+      <section id="page-3" class="screen">
+        
+        <div id="mission-text" class="spy-text">
+            MISSION ACCOMPLISHED.<br>
+            <span style="font-size: 0.6em; color: white;">SELF DESTRUCT IN:</span>
+        </div>
+
+        <div id="timer" class="countdown-text">3</div>
+
+        <div id="blast" class="blast-effect"></div>
+
+        <div id="final-heart" class="giant-heart" style="display: none;">
+            ❤️
+        </div>
+
+      </section>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // === SETUP ===
+            const page1 = document.getElementById('page-1');
+            const page2 = document.getElementById('page-2');
+            const page3 = document.getElementById('page-3');
+            
+            const btnOpen = document.getElementById('btn-open');
+            const btnYes = document.getElementById('btn-yes');
+            const btnNo = document.getElementById('btn-no');
+            
+            const missionText = document.getElementById('mission-text');
+            const timerText = document.getElementById('timer');
+            const blastElement = document.getElementById('blast');
+            const finalHeart = document.getElementById('final-heart');
+            const zoneBottom = document.getElementById('zone-bottom');
+
+            // === 1. MAKE FLOATING HEARTS (PAGE 1) ===
+            const heartContainer = document.getElementById('heart-container');
+            const icons = ['❤️', '💖', '💕'];
+            
+            for(let i=0; i<20; i++) {
+                let h = document.createElement('div');
+                h.classList.add('floater');
+                h.innerText = icons[Math.floor(Math.random() * icons.length)];
+                h.style.left = Math.random() * 100 + '%';
+                h.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                h.style.fontSize = (Math.random() * 2 + 1) + 'rem';
+                heartContainer.appendChild(h);
+            }
+
+            // === 2. NAVIGATION (OPEN) ===
+            btnOpen.addEventListener('click', () => {
+                page1.classList.remove('active');
+                setTimeout(() => { page2.classList.add('active'); }, 500);
+            });
+
+            // === 3. THE "NO" BUTTON ESCAPE LOGIC ===
+            function runAway() {
+                const box = zoneBottom.getBoundingClientRect();
+                const btn = btnNo.getBoundingClientRect();
+
+                const maxLeft = box.width - btn.width;
+                const maxTop = box.height - btn.height;
+
+                const newLeft = Math.random() * maxLeft;
+                const newTop = Math.random() * maxTop;
+
+                btnNo.style.transform = 'none'; 
+                btnNo.style.left = newLeft + 'px';
+                btnNo.style.top = newTop + 'px';
+            }
+
+            btnNo.addEventListener('mouseenter', runAway);
+            btnNo.addEventListener('touchstart', (e) => { e.preventDefault(); runAway(); });
+
+            // === 4. THE SELF DESTRUCT SEQUENCE ===
+            btnYes.addEventListener('click', () => {
+                // A. Immediately switch to Black Screen
+                page2.classList.remove('active');
+                page3.classList.add('active');
+
+                // B. Start Countdown Logic
+                let timeLeft = 3;
+                
+                // Timer Interval
+                const countdownInterval = setInterval(() => {
+                    timeLeft--;
+                    if (timeLeft > 0) {
+                        // Update Number
+                        timerText.innerText = timeLeft;
+                    } else {
+                        // C. TIME IS UP -> BLAST!
+                        clearInterval(countdownInterval);
+                        timerText.style.display = 'none'; // Hide Timer
+                        missionText.style.display = 'none'; // Hide Text
+                        
+                        // Trigger Blast Animation
+                        blastElement.classList.add('explode');
+
+                        // D. Show Heart after Blast
+                        setTimeout(() => {
+                            finalHeart.style.display = 'block';
+                        }, 500);
+                    }
+                }, 1000); // Update every 1 second
+            });
+
+        });
+    </script>
+</body>
+</html>
